@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Omri Adler — Academic &amp; Research Portfolio</title>
+  <style>
+    :root {
+      --bg: #f7f8f7;
+      --surface: #ffffff;
+      --text: #1e292b;
+      --muted: #5c6b6e;
+      --border: #e3e8e6;
+      --accent: #2f5d50;
+      --accent-soft: #eaf1ee;
+      --radius: 10px;
+      --max-w: 820px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Navigation & Tabs */
+    header {
+      background-color: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .site-brand {
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      padding: 0.95rem 0;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 0.25rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab-btn {
+      appearance: none;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--muted);
+      font: inherit;
+      font-size: 0.925rem;
+      font-weight: 500;
+      padding: 0.95rem 0.85rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.18s ease, border-color 0.18s ease;
+    }
+
+    .tab-btn:hover {
+      color: var(--text);
+    }
+
+    .tab-btn[aria-selected="true"] {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .tab-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: -2px;
+      border-radius: 4px;
+    }
+
+    /* Main Content Container */
+    main {
+      max-width: var(--max-w);
+      margin: 2.25rem auto 4rem;
+      padding: 0 1.25rem;
+    }
+
+    .panel {
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.25rem;
+      box-shadow: 0 1px 3px rgba(20, 35, 32, 0.03);
+      animation: fadeIn 0.2s ease;
+    }
+
+    .panel.is-active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(3px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+      line-height: 1.3;
+      letter-spacing: -0.015em;
+    }
+
+    h1 {
+      font-size: 1.65rem;
+      margin-bottom: 0.35rem;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      margin: 0 0 1rem;
+      color: var(--text);
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    /* Profile Header on About Tab */
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .avatar-wrap {
+      flex: 0 0 auto;
+      width: 112px;
+      height: 112px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background-color: var(--accent-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .role-line {
+      color: var(--accent);
+      font-weight: 500;
+      font-size: 0.975rem;
+      margin-bottom: 0.35rem;
+    }
+
+    /* Clean Cards / Lists */
+    .item-list {
+      display: grid;
+      gap: 1.1rem;
+      margin-top: 1.25rem;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.15rem 1.25rem;
+      background-color: #fcfdfd;
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .card-meta {
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .pill {
+      display: inline-block;
+      background-color: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      margin-bottom: 0.75rem;
+    }
+
+    /* Contact Form */
+    .form-grid {
+      display: grid;
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 0.35rem;
+    }
+
+    input, textarea {
+      width: 100%;
+      font: inherit;
+      font-size: 0.95rem;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid #cfd8d5;
+      border-radius: 7px;
+      padding: 0.65rem 0.8rem;
+      transition: border-color 0.15s ease;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .btn-primary {
+      appearance: none;
+      background-color: var(--accent);
+      color: #ffffff;
+      border: none;
+      border-radius: 7px;
+      font: inherit;
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 0.7rem 1.25rem;
+      cursor: pointer;
+      transition: opacity 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.92;
+    }
+
+    .form-status {
+      font-size: 0.9rem;
+      color: var(--accent);
+      margin-top: 0.5rem;
+      min-height: 1.2em;
+    }
+
+    footer {
+      max-width: var(--max-w);
+      margin: 0 auto 2.5rem;
+      padding: 0 1.25rem;
+      font-size: 0.875rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .profile-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+      }
+
+      .panel {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <a class="site-brand" href="#about" data-tab-link="about">Dr. Omri Adler</a>
+      <nav class="tabs" role="tablist" aria-label="Primary sections">
+        <button class="tab-btn" role="tab" id="tab-about" aria-selected="true" aria-controls="panel-about" data-tab="about">About</button>
+        <button class="tab-btn" role="tab" id="tab-research" aria-selected="false" aria-controls="panel-research" data-tab="research">Research</button>
+        <button class="tab-btn" role="tab" id="tab-projects" aria-selected="false" aria-controls="panel-projects" data-tab="projects">Projects</button>
+        <button class="tab-btn" role="tab" id="tab-collaboration" aria-selected="false" aria-controls="panel-collaboration" data-tab="collaboration">Collaboration</button>
+        <button class="tab-btn" role="tab" id="tab-contact" aria-selected="false" aria-controls="panel-contact" data-tab="contact">Contact</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. ABOUT (Default) -->
+    <section class="panel is-active" id="panel-about" role="tabpanel" aria-labelledby="tab-about">
+      <div class="profile-header">
+        <div class="avatar-wrap">
+          <!-- Replace src with your own image path, e.g., "profile.jpg" -->
+          <img
+            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80"
+            alt="Portrait of Dr. Omri Adler"
+            onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=&quot;font-weight:600;color:#2f5d50;font-size:1.5rem;&quot;>ML</span>';"
+          />
+        </div>
+        <div>
+          <h1>Dr. Omri Adler</h1>
+          <div class="role-line">Researcher &amp; Medical Physicist &amp; Lecturer</div>
+          <p class="muted">Focused on image processing and medical physics.</p>
+        </div>
+      </div>
+
+      <p>
+        Hello — I’m Omri. My work sits at the intersection of image processing and medical physics.
+        My goal is to create efficient systems that would be useful for us as scientific users.
+      </p>
+      <p>
+        Across my research and software projects, I prioritize reproducibility, transparent methodology, and calm,
+        thoughtful interfaces that let people focus on the substance of their work.
+      </p>
+    </section>
+
+    <!-- 2. RESEARCH -->
+    <section class="panel" id="panel-research" role="tabpanel" aria-labelledby="tab-research">
+      <span class="pill">Research</span>
+      <h2>Core Themes &amp; Publications</h2>
+      <p class="muted">Selected areas of ongoing study and recent written work.</p>
+
+      <div class="item-list">
+        <div class="card">
+          <div class="card-title">Reliable Workflows for Long-Horizon Data</div>
+          <div class="card-meta">Working Paper · 2026</div>
+          <p>Investigating versioned pipelines, schema drift detection, and lightweight validation checks for longitudinal studies.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Cognitive Load in Analytical Interfaces</div>
+          <div class="card-meta">Journal of Applied Systems · 2025</div>
+          <p>A comparative study examining how progressive disclosure and default states affect analyst accuracy under time constraints.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. PROJECTS -->
+    <section class="panel" id="panel-projects" role="tabpanel" aria-labelledby="tab-projects">
+      <span class="pill">Projects</span>
+      <h2>Selected Tools &amp; Builds</h2>
+      <p class="muted">Open utilities, prototypes, and small tools developed alongside my research.</p>
+
+      <div class="item-list">
+        <div class="card">
+          <div class="card-title">FieldNotes Index</div>
+          <div class="card-meta">Plain-Text Knowledge Tool · Active</div>
+          <p>A fast local indexer for Markdown notes and research memos with zero cloud dependencies.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">DiffTable</div>
+          <div class="card-meta">Data Inspection Utility · Maintained</div>
+          <p>Side-by-side summary comparator for CSV and JSON snapshots to spot subtle numeric and structural changes.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. COLLABORATION -->
+    <section class="panel" id="panel-collaboration" role="tabpanel" aria-labelledby="tab-collaboration">
+      <span class="pill">Collaboration</span>
+      <h2>Working Together</h2>
+      <p>
+        I enjoy collaborating with researchers, small teams, and organizations on well-scoped problems where clear
+        thinking and clean technical execution make a measurable difference.
+      </p>
+
+      <div class="item-list">
+        <div class="card">
+          <div class="card-title">Research &amp; Advisory Partnerships</div>
+          <p>Co-authoring studies, reviewing methodology or experimental design, and advising on data organization.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Prototyping &amp; Technical Design</div>
+          <p>Building focused internal tools, data visualizations, or proof-of-concept systems with clear documentation.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. CONTACT -->
+    <section class="panel" id="panel-contact" role="tabpanel" aria-labelledby="tab-contact">
+      <span class="pill">Contact</span>
+      <h2>Get in Touch</h2>
+      <p class="muted">For research inquiries, collaboration ideas, or general notes, feel free to send a message below or reach out directly at <strong>hello@example.com</strong>.</p>
+
+      <form class="form-grid" id="contact-form">
+        <div>
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" required placeholder="Your name" />
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required placeholder="you@example.com" />
+        </div>
+        <div>
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required placeholder="How can we work together?"></textarea>
+        </div>
+        <div>
+          <button class="btn-primary" type="submit">Send Message</button>
+          <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    &copy; <span id="year"></span> Maya Lin · Calm &amp; simple static template
+  </footer>
+
+  <script>
+    (function () {
+      const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+      const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+      const brandLink = document.querySelector('[data-tab-link="about"]');
+
+      function activateTab(tabName, updateHash = true) {
+        const valid = tabs.some((t) => t.dataset.tab === tabName);
+        const target = valid ? tabName : "about";
+
+        tabs.forEach((tab) => {
+          const isSelected = tab.dataset.tab === target;
+          tab.setAttribute("aria-selected", String(isSelected));
+        });
+
+        panels.forEach((panel) => {
+          const isMatch = panel.id === "panel-" + target;
+          panel.classList.toggle("is-active", isMatch);
+        });
+
+        if (updateHash) {
+          history.replaceState(null, "", "#" + target);
+        }
+      }
+
+      tabs.forEach((tab, idx) => {
+        tab.addEventListener("click", () => activateTab(tab.dataset.tab));
+        tab.addEventListener("keydown", (e) => {
+          if (e.key === "ArrowRight") {
+            e.preventDefault();
+            const next = tabs[(idx + 1) % tabs.length];
+            next.focus();
+            activateTab(next.dataset.tab);
+          } else if (e.key === "ArrowLeft") {
+            e.preventDefault();
+            const prev = tabs[(idx - 1 + tabs.length) % tabs.length];
+            prev.focus();
+            activateTab(prev.dataset.tab);
+          }
+        });
+      });
+
+      if (brandLink) {
+        brandLink.addEventListener("click", (e) => {
+          e.preventDefault();
+          activateTab("about");
+        });
+      }
+
+      window.addEventListener("hashchange", () => {
+        activateTab(location.hash.replace(/^#/, ""), false);
+      });
+
+      const initialHash = location.hash.replace(/^#/, "");
+      activateTab(initialHash || "about", false);
+
+      const form = document.getElementById("contact-form");
+      const status = document.getElementById("form-status");
+      if (form && status) {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          status.textContent = "Thank you — your message has been noted locally (connect a form backend to receive submissions).";
+          form.reset();
+        });
+      }
+
+      const yearEl = document.getElementById("year");
+      if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+      }
+    })();
+  </script>
+</body>
+</html>
