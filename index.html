@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dr. Omri Adler — Academic &amp; Research Portfolio</title>
+  <title>Omri Adler — Medical Physics &amp; Research</title>
   <style>
     :root {
       --bg: #f7f8f7;
@@ -13,8 +13,11 @@
       --border: #e3e8e6;
       --accent: #2f5d50;
       --accent-soft: #eaf1ee;
+      --link-bg: #eef5fc;
+      --link-border: #d4e5f7;
+      --link-text: #0a66c2;
       --radius: 10px;
-      --max-w: 820px;
+      --max-w: 840px;
     }
 
     * {
@@ -30,7 +33,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Top Navigation & Tabs */
     header {
       background-color: var(--surface);
       border-bottom: 1px solid var(--border);
@@ -101,7 +103,6 @@
       border-radius: 4px;
     }
 
-    /* Main Content Container */
     main {
       max-width: var(--max-w);
       margin: 2.25rem auto 4rem;
@@ -127,7 +128,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    h1, h2, h3 {
+    h1, h2 {
       margin-top: 0;
       line-height: 1.3;
       letter-spacing: -0.015em;
@@ -135,7 +136,7 @@
 
     h1 {
       font-size: 1.65rem;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.3rem;
     }
 
     h2 {
@@ -156,7 +157,7 @@
       color: var(--muted);
     }
 
-    /* Profile Header on About Tab */
+    /* Profile Header */
     .profile-header {
       display: flex;
       align-items: center;
@@ -193,17 +194,53 @@
       margin-bottom: 0.35rem;
     }
 
-    /* Clean Cards / Lists */
+    .profile-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.65rem;
+    }
+
+    .ext-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--link-text);
+      background-color: var(--link-bg);
+      border: 1px solid var(--link-border);
+      border-radius: 7px;
+      text-decoration: none;
+      transition: background-color 0.15s ease;
+    }
+
+    .ext-link:hover {
+      background-color: #e1eefb;
+    }
+
+    .ext-link.secondary {
+      color: var(--accent);
+      background-color: var(--accent-soft);
+      border-color: #cde0d8;
+    }
+
+    .ext-link.secondary:hover {
+      background-color: #dcebe4;
+    }
+
+    /* Cards & Lists */
     .item-list {
       display: grid;
-      gap: 1.1rem;
+      gap: 1rem;
       margin-top: 1.25rem;
     }
 
     .card {
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 1.15rem 1.25rem;
+      padding: 1.1rem 1.25rem;
       background-color: #fcfdfd;
     }
 
@@ -216,7 +253,18 @@
     .card-meta {
       font-size: 0.875rem;
       color: var(--muted);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .sub-roles {
+      margin: 0.5rem 0 0;
+      padding-left: 1.15rem;
+      font-size: 0.925rem;
+      color: var(--text);
+    }
+
+    .sub-roles li {
+      margin-bottom: 0.3rem;
     }
 
     .pill {
@@ -307,6 +355,10 @@
         gap: 1rem;
       }
 
+      .profile-links {
+        justify-content: center;
+      }
+
       .panel {
         padding: 1.5rem;
       }
@@ -316,7 +368,7 @@
 <body>
   <header>
     <div class="nav-inner">
-      <a class="site-brand" href="#about" data-tab-link="about">Dr. Omri Adler</a>
+      <a class="site-brand" href="#about" data-tab-link="about" id="brand-name"></a>
       <nav class="tabs" role="tablist" aria-label="Primary sections">
         <button class="tab-btn" role="tab" id="tab-about" aria-selected="true" aria-controls="panel-about" data-tab="about">About</button>
         <button class="tab-btn" role="tab" id="tab-research" aria-selected="false" aria-controls="panel-research" data-tab="research">Research</button>
@@ -331,97 +383,49 @@
     <!-- 1. ABOUT (Default) -->
     <section class="panel is-active" id="panel-about" role="tabpanel" aria-labelledby="tab-about">
       <div class="profile-header">
-        <div class="avatar-wrap">
-          <!-- Replace src with your own image path, e.g., "profile.jpg" -->
-          <img
-            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80"
-            alt="Portrait of Dr. Omri Adler"
-            onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=&quot;font-weight:600;color:#2f5d50;font-size:1.5rem;&quot;>ML</span>';"
-          />
-        </div>
+        <div class="avatar-wrap" id="avatar-wrap"></div>
         <div>
-          <h1>Dr. Omri Adler</h1>
-          <div class="role-line">Researcher &amp; Medical Physicist &amp; Lecturer</div>
-          <p class="muted">Focused on image processing and medical physics.</p>
+          <h1 id="profile-name"></h1>
+          <div class="role-line" id="profile-headline"></div>
+          <p class="muted" id="profile-tagline"></p>
+          <div class="profile-links" id="about-links"></div>
         </div>
       </div>
 
-      <p>
-        Hello — I’m Omri. My work sits at the intersection of image processing and medical physics.
-        My goal is to create efficient systems that would be useful for us as scientific users.
-      </p>
-      <p>
-        Across my research and software projects, I prioritize reproducibility, transparent methodology, and calm,
-        thoughtful interfaces that let people focus on the substance of their work.
-      </p>
+      <div id="profile-bio"></div>
     </section>
 
     <!-- 2. RESEARCH -->
     <section class="panel" id="panel-research" role="tabpanel" aria-labelledby="tab-research">
-      <span class="pill">Research</span>
-      <h2>Core Themes &amp; Publications</h2>
-      <p class="muted">Selected areas of ongoing study and recent written work.</p>
-
-      <div class="item-list">
-        <div class="card">
-          <div class="card-title">Reliable Workflows for Long-Horizon Data</div>
-          <div class="card-meta">Working Paper · 2026</div>
-          <p>Investigating versioned pipelines, schema drift detection, and lightweight validation checks for longitudinal studies.</p>
-        </div>
-        <div class="card">
-          <div class="card-title">Cognitive Load in Analytical Interfaces</div>
-          <div class="card-meta">Journal of Applied Systems · 2025</div>
-          <p>A comparative study examining how progressive disclosure and default states affect analyst accuracy under time constraints.</p>
-        </div>
-      </div>
+      <span class="pill">Research &amp; Publications</span>
+      <h2>Publications &amp; Research Profiles</h2>
+      <p class="muted" id="research-intro"></p>
+      <div class="profile-links" id="research-links"></div>
+      <div class="item-list" id="research-list"></div>
     </section>
 
     <!-- 3. PROJECTS -->
     <section class="panel" id="panel-projects" role="tabpanel" aria-labelledby="tab-projects">
-      <span class="pill">Projects</span>
-      <h2>Selected Tools &amp; Builds</h2>
-      <p class="muted">Open utilities, prototypes, and small tools developed alongside my research.</p>
-
-      <div class="item-list">
-        <div class="card">
-          <div class="card-title">FieldNotes Index</div>
-          <div class="card-meta">Plain-Text Knowledge Tool · Active</div>
-          <p>A fast local indexer for Markdown notes and research memos with zero cloud dependencies.</p>
-        </div>
-        <div class="card">
-          <div class="card-title">DiffTable</div>
-          <div class="card-meta">Data Inspection Utility · Maintained</div>
-          <p>Side-by-side summary comparator for CSV and JSON snapshots to spot subtle numeric and structural changes.</p>
-        </div>
-      </div>
+      <span class="pill">Experience &amp; Projects</span>
+      <h2>Academic, Clinical &amp; Engineering Roles</h2>
+      <p class="muted" id="projects-intro"></p>
+      <div class="item-list" id="projects-list"></div>
     </section>
 
     <!-- 4. COLLABORATION -->
     <section class="panel" id="panel-collaboration" role="tabpanel" aria-labelledby="tab-collaboration">
       <span class="pill">Collaboration</span>
       <h2>Working Together</h2>
-      <p>
-        I enjoy collaborating with researchers, small teams, and organizations on well-scoped problems where clear
-        thinking and clean technical execution make a measurable difference.
-      </p>
-
-      <div class="item-list">
-        <div class="card">
-          <div class="card-title">Research &amp; Advisory Partnerships</div>
-          <p>Co-authoring studies, reviewing methodology or experimental design, and advising on data organization.</p>
-        </div>
-        <div class="card">
-          <div class="card-title">Prototyping &amp; Technical Design</div>
-          <p>Building focused internal tools, data visualizations, or proof-of-concept systems with clear documentation.</p>
-        </div>
-      </div>
+      <p id="collaboration-intro"></p>
+      <div class="item-list" id="collaboration-list"></div>
     </section>
 
     <!-- 5. CONTACT -->
     <section class="panel" id="panel-contact" role="tabpanel" aria-labelledby="tab-contact">
       <span class="pill">Contact</span>
       <h2>Get in Touch</h2>
-      <p class="muted">For research inquiries, collaboration ideas, or general notes, feel free to send a message below or reach out directly at <strong>hello@example.com</strong>.</p>
+      <p class="muted" id="contact-intro"></p>
+      <div class="profile-links" id="contact-links"></div>
 
       <form class="form-grid" id="contact-form">
         <div>
@@ -445,11 +449,214 @@
   </main>
 
   <footer>
-    &copy; <span id="year"></span> Maya Lin · Calm &amp; simple static template
+    &copy; <span id="year"></span> <span id="footer-name"></span>
   </footer>
 
   <script>
+    // =========================================================================
+    // PARAMETERS SECTION
+    // Edit only the values inside PARAMETERS below to update the entire site.
+    // =========================================================================
+    const PARAMETERS = {
+      name: "Omri Adler",
+      initials: "OA",
+      // Replace with your profile photo URL or local file path (e.g., "profile.jpg"):
+      avatarUrl: "profile.jpg",
+      headline: "Medical Physicist · Ph.D. in Biomedical Engineering · M.Sc. in Computational Physics",
+      tagline: "Ultrasound medical imaging, image processing, analytical algorithms, and teaching.",
+
+      // External profile links
+      linkedinUrl: "https://www.linkedin.com/in/omri-adler-0b46ab11b/",
+      scholarUrl: "https://scholar.google.com/citations?user=mr5GqVoAAAAJ&hl=en&oi=ao",
+      researchgateUrl: "https://www.researchgate.net/profile/Omri-Adler",
+
+      // About tab paragraphs
+      bio: [
+        "A Medical Physicist, have a Ph.D. in Biomedical Engineering (medical imaging in ultrasound), M.Sc. in Computational Physics. Focusing on challenging projects and interesting research.",
+        "Experienced Matlab programmer in image processing and analyzing algorithms (Also worked with Python and C). A motivated self-learner with strong analytical skills. Passionate about science, technology and solving new problems."
+      ],
+
+      // Research tab intro & publications list
+      researchIntro: "Selected publications and research profiles (Google Scholar & ResearchGate links update live externally).",
+      publications: [
+        {
+          title: "Perfusion Assessment in CEUS Imaging for Estimating Pancreatic Cancer Response to Sonoporation-Enhanced Chemotherapy",
+          meta: "Ultrasonic Imaging · Omri Adler, Priscilla Machado, Trang Vu, Flemming Forsberg, Odd Helge Gilja, Dan Adam",
+          description: "Contrast-enhanced ultrasound (CEUS) perfusion analysis using denoising, static-frame selection, spatio-temporal registration, and deconvolution to evaluate treatment response in pancreatic cancer."
+        },
+        {
+          title: "Strain Curve Classification Using Supervised Machine Learning Algorithm with Physiologic Constraints",
+          meta: "Ultrasound in Medicine & Biology · Amir Yahav, Grigoriy Zurakhov, Omri Adler, Dan Adam",
+          description: "Supervised machine learning classification of strain curves incorporating physiological constraints for cardiac/tissue strain analysis."
+        },
+        {
+          title: "A Study of Vibrating Nanotubes with Additional Adsorbed Masses",
+          meta: "Journal of Physics: Conference Series · Joan Adler, Omri Adler",
+          description: "Computational and analytical study of vibrational frequency shifts in nanotubes with adsorbed molecular masses."
+        }
+      ],
+
+      // Projects / Experience tab intro & entries
+      projectsIntro: "Roles across clinical medical physics, university teaching, research labs, and algorithm engineering.",
+      experience: [
+        {
+          title: "Medical Physicist — Carmel Medical Center",
+          meta: "Full-time · Nov 2026 – Present",
+          description: "Clinical medical physics practice and technical support."
+        },
+        {
+          title: "Lecturer — University of Haifa",
+          meta: "Part-time · Oct 2025 – Present",
+          description: "Higher education teaching and university lecturing."
+        },
+        {
+          title: "Medical Physicist — Rambam Health Care Campus",
+          meta: "Internship · Sep 2024 – Aug 2026 (2 yrs)",
+          description: "Clinical residency/internship in medical physics."
+        },
+        {
+          title: "Representative of Ph.D. Degree in Bio-Medical Engineering — Technion Student Association (אס\"ט)",
+          meta: "Oct 2017 – Dec 2022 (5 yrs 3 mos) · Israel",
+          description: "Represented Ph.D. biomedical engineering students at the Technion."
+        },
+        {
+          title: "Lab & Project Instructor — Faculty of Biomedical Engineering, Technion",
+          meta: "1 yr 6 mos",
+          description: "Instruction across laboratory and annual capstone courses.",
+          bullets: [
+            "Lab Instructor (Oct 2021 – Mar 2022 · 6 mos): Labs E1, E2 and E3 (Ultrasound, EEG and ECG).",
+            "Project Instructor (Oct 2020 – Sep 2021 · 1 yr): Annual Project 1 (Ultrasound Phantom and Deconvolution Algorithms)."
+          ]
+        },
+        {
+          title: "Laboratory Assistant — Faculty of Biomedical Engineering, Technion",
+          meta: "Part-time · Apr 2018 – Dec 2018 (9 mos) · Haifa, Israel",
+          description: "Researcher in Prof. Dan Adam's lab."
+        },
+        {
+          title: "Algorithm Engineer — Bat-Call Medical Device",
+          meta: "Mar 2017 – Mar 2018 (1 yr 1 mo) · Nesher",
+          description: "Algorithm development for medical device signal/image analysis."
+        },
+        {
+          title: "Representative of Masters Degree in Physics — Technion Student Association (TSA / אס\"ט)",
+          meta: "Oct 2013 – Dec 2016 (3 yrs 3 mos) · Israel",
+          description: "Represented M.Sc. physics students at the Technion."
+        },
+        {
+          title: "Private Tutor — Technion - Israel Institute of Technology",
+          meta: "Oct 2010 – Mar 2016 (5 yrs 6 mos) · Israel",
+          description: "Physics and Math lessons."
+        },
+        {
+          title: "Tutor — Technion International",
+          meta: "Oct 2013 – Oct 2015 (2 yrs 1 mo) · Israel",
+          description: "Physics and Hebrew lessons."
+        },
+        {
+          title: "Laboratory Assistant — Physics@Technion",
+          meta: "Part-time · Nov 2014 – Mar 2015 (5 mos) · Haifa, Israel",
+          description: "Researcher in Prof. Joan Adler's lab."
+        },
+        {
+          title: "Lab Instructor — Physics@Technion",
+          meta: "Apr 2014 – Sep 2014 (6 mos) · Israel",
+          description: "Physics 1 and Physics 1h (Kinematics)."
+        }
+      ],
+
+      // Collaboration tab
+      collaborationIntro: "Open to connecting on research initiatives, medical imaging / signal processing challenges, and academic or technical collaborations.",
+      collaboration: [
+        {
+          title: "Medical Imaging & Algorithmic Research",
+          description: "Collaborative studies in ultrasound imaging, perfusion/signal analysis, and MATLAB/Python/C algorithm development."
+        },
+        {
+          title: "Clinical & Academic Partnerships",
+          description: "Joint research projects, methodological review, and educational initiatives."
+        }
+      ],
+
+      // Contact tab
+      contactIntro: "Connect via LinkedIn, Google Scholar, or ResearchGate, or send a message below."
+    };
+    // =========================================================================
+    // END PARAMETERS SECTION
+    // =========================================================================
+
+    function buildProfileLinksHtml(params) {
+      const links = [
+        { label: "LinkedIn", url: params.linkedinUrl, primary: true },
+        { label: "Google Scholar", url: params.scholarUrl, primary: false },
+        { label: "ResearchGate", url: params.researchgateUrl, primary: false }
+      ].filter((item) => item.url && item.url.trim() !== "");
+
+      return links.map((link) =>
+        `<a class="ext-link ${link.primary ? "" : "secondary"}" href="${link.url}" target="_blank" rel="noopener noreferrer">${link.label} ↗</a>`
+      ).join("");
+    }
+
+    function renderCards(containerId, items) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = items.map((item) => {
+        const bulletsHtml = Array.isArray(item.bullets) && item.bullets.length
+          ? `<ul class="sub-roles">${item.bullets.map((b) => `<li>${b}</li>`).join("")}</ul>`
+          : "";
+        return `
+          <div class="card">
+            <div class="card-title">${item.title}</div>
+            ${item.meta ? `<div class="card-meta">${item.meta}</div>` : ""}
+            ${item.description ? `<p>${item.description}</p>` : ""}
+            ${bulletsHtml}
+          </div>
+        `;
+      }).join("");
+    }
+
+    function applyParameters(params) {
+      document.title = `${params.name} — Medical Physics & Research`;
+      document.getElementById("brand-name").textContent = params.name;
+      document.getElementById("profile-name").textContent = params.name;
+      document.getElementById("footer-name").textContent = params.name;
+      document.getElementById("profile-headline").textContent = params.headline;
+      document.getElementById("profile-tagline").textContent = params.tagline;
+
+      const linksHtml = buildProfileLinksHtml(params);
+      document.getElementById("about-links").innerHTML = linksHtml;
+      document.getElementById("research-links").innerHTML = linksHtml;
+      document.getElementById("contact-links").innerHTML = linksHtml;
+
+      const avatarWrap = document.getElementById("avatar-wrap");
+      avatarWrap.innerHTML = "";
+      const img = document.createElement("img");
+      img.src = params.avatarUrl;
+      img.alt = `Portrait of ${params.name}`;
+      img.onerror = () => {
+        avatarWrap.innerHTML = `<span style="font-weight:600;color:#2f5d50;font-size:1.5rem;">${params.initials}</span>`;
+      };
+      avatarWrap.appendChild(img);
+
+      document.getElementById("profile-bio").innerHTML = params.bio
+        .map((p) => `<p>${p}</p>`)
+        .join("");
+
+      document.getElementById("research-intro").textContent = params.researchIntro;
+      renderCards("research-list", params.publications);
+
+      document.getElementById("projects-intro").textContent = params.projectsIntro;
+      renderCards("projects-list", params.experience);
+
+      document.getElementById("collaboration-intro").textContent = params.collaborationIntro;
+      renderCards("collaboration-list", params.collaboration);
+
+      document.getElementById("contact-intro").textContent = params.contactIntro;
+    }
+
     (function () {
+      applyParameters(PARAMETERS);
+
       const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
       const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
       const brandLink = document.querySelector('[data-tab-link="about"]');
@@ -464,8 +671,7 @@
         });
 
         panels.forEach((panel) => {
-          const isMatch = panel.id === "panel-" + target;
-          panel.classList.toggle("is-active", isMatch);
+          panel.classList.toggle("is-active", panel.id === "panel-" + target);
         });
 
         if (updateHash) {
@@ -501,8 +707,7 @@
         activateTab(location.hash.replace(/^#/, ""), false);
       });
 
-      const initialHash = location.hash.replace(/^#/, "");
-      activateTab(initialHash || "about", false);
+      activateTab(location.hash.replace(/^#/, "") || "about", false);
 
       const form = document.getElementById("contact-form");
       const status = document.getElementById("form-status");
@@ -514,10 +719,7 @@
         });
       }
 
-      const yearEl = document.getElementById("year");
-      if (yearEl) {
-        yearEl.textContent = new Date().getFullYear();
-      }
+      document.getElementById("year").textContent = new Date().getFullYear();
     })();
   </script>
 </body>
